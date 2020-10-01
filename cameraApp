@@ -1,0 +1,70 @@
+
+To create drawable files :
+Option 1 - Harddisk - copy image. Right click drawablle - paste.
+Option 2 - Right click drawable -> New -> Vector asset - Choose the asset and customise → click next → click finish
+
+Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   tools:context=".MainActivity">
+   <Button
+       android:id="@+id/button1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:text="Take a Photo">
+   </Button>
+   <ImageView
+       android:id="@+id/imageView1"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:layout_above="@+id/button1"
+       android:layout_alignParentTop="true"
+       android:src="@drawable/a">
+   </ImageView>
+</RelativeLayout>
+
+package com.example.a23_implicitintent_camera;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+   private static final int CAMERA_REQUEST = 18;
+   ImageView imageView;
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+       imageView = findViewById(R.id.imageView1);
+       Button photoButton = findViewById(R.id.button1);
+       photoButton.setOnClickListener(this);
+   }
+   @Override
+   public void onClick(View v) {
+       Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+       startActivityForResult(cameraIntent,CAMERA_REQUEST);
+   }
+   @Override
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       super.onActivityResult(requestCode, resultCode, data);
+       if (requestCode == CAMERA_REQUEST) {
+           Bitmap photo = (Bitmap) data.getExtras().get("data");
+           imageView.setImageBitmap(photo);
+           //Toast.makeText(this,String.valueOf(resultCode), Toast.LENGTH_SHORT).show();
+       }
+   }
+}
+
