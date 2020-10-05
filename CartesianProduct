@@ -1,0 +1,74 @@
+//Cartesian product of two sets
+#include <stdio.h>
+
+int main(void) {
+	int m,n;
+	int i,j;
+	printf("Enter no. of elements in set A and B resp.\n");
+	scanf("%d%d", &m, &n);
+	int A[m], B[n];
+	printf("Enter elements of A:\n");
+	for(i=0; i<m; i++)
+	{
+		scanf("%d", &A[i]);
+	}
+	printf("Enter elements of B:\n");
+	for(j=0; j<n; j++)
+	{
+		scanf("%d", &B[j]);
+	}
+	
+	//AxB
+	printf("Number of elements in AxB: %d\n", m*n);
+	printf("{");
+	for(i=0; i<m; i++)
+	{
+		for(j=0; j<n; j++)
+		{
+			printf("(%d,%d), ",A[i], B[j]);
+		}
+	}
+	printf("}");
+	printf("\n");
+	
+	//BxA
+	printf("Number of elements in BxA: %d\n", n*m);
+	printf("{");
+	for(j=0; j<n; j++)
+	{
+		for(i=0; i<m; i++)
+		{
+			printf("(%d,%d), ",B[j], A[i]);
+		}
+	}
+	printf("}");
+	printf("\n");
+
+	//AxA
+	printf("Number of elements in AxA: %d\n", m*m);
+	printf("{");
+	for(i=0; i<m; i++)
+	{
+		for(j=0; j<m; j++)
+		{
+			printf("(%d,%d), ",A[i], A[j]);
+		}
+	}
+	printf("}");
+	printf("\n");
+
+	//BxB
+	printf("Number of elements in BxB: %d\n", n*n);
+	printf("{");
+	for(i=0; i<n; i++)
+	{
+		for(j=0; j<n; j++)
+		{
+			printf("(%d,%d), ",B[i], B[j]);
+		}
+	}
+	printf("}");
+	
+	
+	return 0;
+}
